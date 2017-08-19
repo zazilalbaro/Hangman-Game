@@ -1,0 +1,22 @@
+body {
+	background-color: lightblue;
+}
+
+h1 {
+	color: blue;
+	text-align: center;
+}
+
+#newGame {
+	position: relative;
+	left: 46%;
+}
+
+.padTop {
+	padding-top: 20px;
+}
+
+.ctr {
+	text-align: center;
+}
+
