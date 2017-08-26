@@ -26,7 +26,7 @@ var game = {
 	userGuess: function(letter) {
 		if (this.gameOn) {
 			// check if letter already guessed.
-			if ((!this.bGuesses.indexOf(letter)) && (!this.goodGuesses.indexOf(letter))) {
+			if ((this.bGuesses.indexOf(letter) < 0) && (this.goodGuesses.indexOf(letter) < 0)) {
 				// Determine if guess is correct.
 				if (this.baby.indexOf(letter) != -1) {
 					// Good Guess
