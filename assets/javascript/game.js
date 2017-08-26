@@ -1,29 +1,102 @@
+
+
+var game = {
+	babies: ["calf", "fawn", "foal", "hatchling", "joey", "kit", "kitten", "peachick", "piglet", "porcupette", "puggle", "squab", "tadpole", "pup"],
+	wins: 0,
+	losses: 0,
+	word: null,
+	badGuesses: [],
+	correctGuesses: [],
+
+	reset: function() {
+		this.word = null;
+		this.generateWord();
+		this.badGuesses = [];
+		this.goodGuesses = [];
+	},
+
+	userGuess: function(letter) {
+		var isCorrect = false;
+		// Check if letter is valid.
+		if () {
+			// check if letter already guessed.
+			if (!this.badGuesses.indexOf(letter) && !this.goodGuesses.indexOf(letter)) {
+				// Determine if guess is correct.
+				if (this.word.indexOf(letter) != -1) {
+					// Good Guess
+					isCorrect = true;
+					this.goodGuesses.push(letter);
+				} 
+					// check if they won (all letters guessed)
+				else {
+					// Bad Guess
+					isCorrect = false;
+					this.badGuesses.push(letter);
+					// check if they lost (out of guesses)
+				}
+			}
+		}
+	},
+
+
+	// function to process after good guess
+
+	// some function to process after bad guess
+
+	generateWord: function() {
+		this.word = this.babies[Math.floor(Math.random() * this.babies.length)].toUpperCase();
+	}
+};
+
+
+//Game Begins with New Game button
+document.getElementById("newGame").addEventListener("click", function() {
+	game.reset();
+
+};
+
+// bind event to process user guess
+// var isGood = game.userGuess(event.key)
+// update page ifGood
+// update page ifBad
+
+for (var i=0; i < game.word.length; i++) {
+	if (game.goodGuesses.indexOf(game.word.charAt(i)) != -1) {
+		// show letter, it was  guessed
+	} else {
+		// show dash, letter not guessed
+	}
+}
+
+
+
+
+
 window.onload = function() {
 // use bootstrap rows/columns for picture and game / underscores
 
 // define all the possible animals and starting values
-var babies = [
-	["C","A","L","F"], 
-	["F", "A", "W", "N"],
-	["F", "O", "A", "L"],
-	["H", "A", "T", "C", "H", "L", "I", "N", "G"],
-	["J", "O", "E", "Y"],
-	["K", "I", "T"],
-	["K", "I", "T", "T", "E", "N"],
-	["P", "E", "A", "C", "H", "I", "C", "K"],
-	["P", "I", "G", "L", "E", "T"],
-	["P", "O", "R", "C", "U", "P", "E", "T", "T", "E"],
-	["P", "U", "G", "G", "L", "E"],
-	["S", "Q", "U", "A", "B"],
-	["T", "A", "D", "P", "O", "L", "E"],
-	["P", "U", "P"]
-];
+// var babies = [
+// 	["C","A","L","F"], 
+// 	["F", "A", "W", "N"],
+// 	["F", "O", "A", "L"],
+// 	["H", "A", "T", "C", "H", "L", "I", "N", "G"],
+// 	["J", "O", "E", "Y"],
+// 	["K", "I", "T"],
+// 	["K", "I", "T", "T", "E", "N"],
+// 	["P", "E", "A", "C", "H", "I", "C", "K"],
+// 	["P", "I", "G", "L", "E", "T"],
+// 	["P", "O", "R", "C", "U", "P", "E", "T", "T", "E"],
+// 	["P", "U", "G", "G", "L", "E"],
+// 	["S", "Q", "U", "A", "B"],
+// 	["T", "A", "D", "P", "O", "L", "E"],
+// 	["P", "U", "P"]
+// ];
 
-var wins = 0;
-var losses = 0;
+// var wins = 0;
+// var losses = 0;
 
-//Game Begins with New Game button
-document.getElementById("newGame").addEventListener("click", function() {
+
 
 	// upon the start of each game, the program will choose a random baby from the babies array
 	// starting value each time, variable value gets replaced with each guess
