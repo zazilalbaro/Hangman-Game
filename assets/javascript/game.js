@@ -13,6 +13,7 @@ var game = {
 	rGuesses: 0,
 
 	reset: function() {
+		this.gameOn = true;
 		this.baby = null;
 		this.generateWord();
 		this.bGuesses = [];
@@ -25,21 +26,20 @@ var game = {
 	userGuess: function(letter) {
 		if (this.gameOn) {
 			// check if letter already guessed.
-			if (!this.bGuesses.indexOf(letter) && !this.goodGuesses.indexOf(letter)) {
+			if ((!this.bGuesses.indexOf(letter)) && (!this.goodGuesses.indexOf(letter))) {
 				// Determine if guess is correct.
 				if (this.baby.indexOf(letter) != -1) {
 					// Good Guess
 					isCorrect = true;
 					this.goodGuesses.push(letter);
 					this.ltrGuessed();
-					// call good guess function
 				} 
 					
 				else {
 					// Bad Guess
 					isCorrect = false;
 					this.bGuesses.push(letter);
-					// call bad guess function
+					this.ltrNotGuessed();
 				}
 			}
 		}
