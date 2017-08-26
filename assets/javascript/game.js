@@ -7,6 +7,7 @@ var game = {
 	word: null,
 	badGuesses: [],
 	correctGuesses: [],
+	userLtr: null,
 
 	reset: function() {
 		this.word = null;
@@ -52,13 +53,13 @@ var game = {
 //Game Begins with New Game button
 document.getElementById("newGame").addEventListener("click", function() {
 	game.reset();
-
 };
 
+document.onkeyup = function(event) {
+    game.userltr = String.fromCharCode(event.keyCode).toUpperCase();
 // bind event to process user guess
-// var isGood = game.userGuess(event.key)
-// update page ifGood
-// update page ifBad
+	game.userGuess(userltr);
+
 
 for (var i=0; i < game.word.length; i++) {
 	if (game.goodGuesses.indexOf(game.word.charAt(i)) != -1) {
