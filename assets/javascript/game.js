@@ -5,42 +5,43 @@ var game = {
 	wins: 0,
 	losses: 0,
 	baby: "",
-	bGuesses: [],
+	badGuesses: [],
 	correctGuesses: [],
+	corrGuessNum: 0,
 	userLtr: null,
 	gameOn: false,
-	wordInProgress: "",
-	rGuesses: 0,
+	remGuesses: 0,
 
 	reset: function() {
 		this.gameOn = true;
+		this.corrGuessNum = 0;
+		document.getElementById("babyPic").src = "assets/images/babies.jpg";
 		this.baby = null;
 		this.generateWord();
-		this.bGuesses = [];
-		this.goodGuesses = [];
-		this.rGuesses = this.baby.length * 2;
+		this.badGuesses = [];
+		document.getElementById("badGuesses").innerHTML = this.badGuesses;
+		this.correctGuesses = [];
+		this.remGuesses = this.baby.length * 2;
+		document.getElementById("remGuesses").innerHTML = this.remGuesses;
 		this.displayWord();
-		console.log("reset" + this.baby + " " + this.rGuesses)
+		console.log("reset" + this.baby + " " + this.remGuesses)
 	},
 
 	userGuess: function(letter) {
 		if (this.gameOn) {
 			// check if letter already guessed.
-			if ((this.bGuesses.indexOf(letter) < 0) && (this.goodGuesses.indexOf(letter) < 0)) {
+			if ((this.badGuesses.indexOf(letter) < 0) && (this.correctGuesses.indexOf(letter) < 0)) {
 				// Determine if guess is correct.
 				if (this.baby.indexOf(letter) != -1) {
 					// Good Guess
-					isCorrect = true;
-					this.goodGuesses.push(letter);
+					this.correctGuesses.push(letter);
 					this.ltrGuessed();
 				} 
-					
 				else {
 					// Bad Guess
-					isCorrect = false;
-					this.bGuesses.push(letter);
+					this.badGuesses.push(letter);
 					this.ltrNotGuessed();
-				}
+				};
 			}
 		}
 	},
@@ -48,14 +49,36 @@ var game = {
 	// function to process after good guess
 	ltrGuessed: function() {
 		this.displayWord();
+		// For new guesses reduce remGuesses
+		this.remGuesses--;
+		document.getElementById("remGuesses").innerHTML = this.remGuesses;
 		// check if they won (all letters guessed)
-	
+		if (this.corrGuessNum == this.baby.length) {
+			this.wins++;
+			document.getElementById("wins").innerHTML = "Wins: " + this.wins;
+			document.getElementById("babyPic").src = "assets/images/" + this.baby + ".jpg";
+			this.gameOn = false;
+		}
+		// check if they lost (out of guesses)
+		else if (this.remGuesses == 0) {
+			this.losses++;
+			document.getElementById("losses").innerHTML = "Losses: " + this.losses;
+			this.gameOn = false;
+		};
 	},
 
 	// some function to process after bad guess
 	ltrNotGuessed: function() {
-		document.getElementById("badGuesses").innerHTML = this.bGuesses;
+		document.getElementById("badGuesses").innerHTML = this.badGuesses;
+		// For new guesses reduce remGuesses
+		this.remGuesses--;
+		document.getElementById("remGuesses").innerHTML = this.remGuesses;
 		// check if they lost (out of guesses)
+		if (this.remGuesses == 0) {
+			this.losses++;
+			document.getElementById("losses").innerHTML = "Losses: " + this.losses;
+			this.gameOn = false;
+		}
 	},
 
 	generateWord: function() {
@@ -64,19 +87,21 @@ var game = {
 	},
 
 	displayWord: function() {
+		var wordInProgress = "";
+		this.corrGuessNum = 0;
 		for (var i=0; i < game.baby.length; i++) {
-			if (game.goodGuesses.indexOf(this.baby.charAt(i)) != -1) {
+			if (game.correctGuesses.indexOf(this.baby.charAt(i)) != -1) {
 			// show letter, guessed
-			this.wordInProgress = this.wordInProgress + this.baby.charAt(i);
+			wordInProgress = wordInProgress + this.baby.charAt(i) + " ";
+			this.corrGuessNum++;
 			} 
 			else {
 			// show dash, not guessed
-			this.wordInProgress = this.wordInProgress + "_ ";
-			console.log(this.wordInProgress);
+			wordInProgress = wordInProgress + "_ ";
 			}
 		};
-		console.log(this.wordInProgress);
-		document.getElementById("wordProgress").innerHTML = this.wordInProgress;
+		console.log("word in progress:" + wordInProgress);
+		document.getElementById("wordProgress").innerHTML = wordInProgress;
 	}
 }; // end of object
 
