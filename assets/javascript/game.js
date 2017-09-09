@@ -56,7 +56,8 @@ var game = {
 		if (this.corrGuessNum == this.baby.length) {
 			this.wins++;
 			document.getElementById("wins").innerHTML = "Wins: " + this.wins;
-			document.getElementById("babyPic").src = "assets/images/" + this.baby + ".jpg";
+			document.getElementById("babyPic").src = "assets/images/" + this.baby.toLowerCase() + ".jpg";
+			console.log("img assets/images/" + this.baby.toLowerCase() + ".jpg")
 			this.gameOn = false;
 		}
 		// check if they lost (out of guesses)
